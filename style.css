@@ -340,3 +340,30 @@ footer {
   transform-style: preserve-3d;
   will-change: transform;
 }
+/* إعدادات التجاوب مع شاشات الهواتف */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr; /* يجعل كروت المشاريع تأتي فوق بعضها بدل الجوار */
+  }
+
+  .project-card {
+    padding: 1.2rem;
+  }
+}
