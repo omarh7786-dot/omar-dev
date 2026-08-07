@@ -341,29 +341,22 @@ footer {
   will-change: transform;
 }
 /* إعدادات التجاوب مع شاشات الهواتف */
+/* عدل الكود ده جوه الـ Media Query للموبايل */
 @media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    gap: 12px;
+  
+  /* 1. تنسيق القائمة العلوية بالكامل */
+  nav, .navbar {
+    flex-direction: row; /* يخلي العناصر جنب بعضها مش فوق بعض */
+    justify-content: center; /* يوسطن القائمة كلها في نصف الشاشة */
+    gap: 10px; /* يخلي مسافة بسيطة ومناسبة بين الكلمات */
+    width: 100%;
+    padding: 10px 0;
   }
 
-  .hero {
-    padding: 2rem 1rem;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr; /* يجعل كروت المشاريع تأتي فوق بعضها بدل الجوار */
-  }
-
-  .project-card {
-    padding: 1.2rem;
+  /* 2. تنسيق عناصر القائمة الفردية (الروابط) */
+  nav a, .navbar a {
+    font-size: 0.85rem; /* تصغير حجم الخط قليلاً ليناسب عرض الشاشة */
+    padding: 5px;
+    text-align: center;
   }
 }
