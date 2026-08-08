@@ -43,3 +43,23 @@ cards.forEach(card => {
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
   });
 });
+// برمجة زر تبديل الوضع (Dark / Light Mode)
+const themeToggleBtn = document.getElementById('themeToggle');
+
+// فحص الخيار المخزن سابقاً لدى المستخدم
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme === 'light') {
+  document.body.classList.add('light-theme');
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light-theme');
+  
+  let theme = 'dark';
+  if (document.body.classList.contains('light-theme')) {
+    theme = 'light';
+  }
+  
+  // حفظ خيار المستخدم في ذاكرة المتصفح
+  localStorage.setItem('theme', theme);
+});

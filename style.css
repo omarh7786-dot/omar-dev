@@ -1,5 +1,5 @@
 /* =========================================
-   1. الألوان المتناسقة والأساسيات
+   1. الألوان المتناسقة والأساسيات (Dark & Light)
    ========================================= */
 :root {
   --bg-color: #0b0f17;
@@ -10,6 +10,46 @@
   --primary-accent: #00f2fe;
   --secondary-accent: #4facfe;
   --glow-color: rgba(0, 242, 254, 0.15);
+  --header-bg: rgba(19, 27, 46, 0.75);
+  --title-color: #ffffff;
+}
+
+/* درجات ألوان الوضع الفاتح Light Mode */
+body.light-theme {
+  --bg-color: #f4f7fb;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.1);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --primary-accent: #0284c7;
+  --secondary-accent: #0369a1;
+  --glow-color: rgba(2, 132, 199, 0.15);
+  --header-bg: rgba(244, 247, 251, 0.85);
+  --title-color: #0f172a;
+}
+
+/* ربط العناصر بالمتغيرات الديناميكية */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 15px 0;
+  transition: background 0.3s ease;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 html {
@@ -23,6 +63,16 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.8;
+  body {
+  font-family: 'Cairo', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  line-height: 1.8;
+  background-image: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
+  background-repeat: no-repeat;
+}
 }
 
 .container {
@@ -342,21 +392,270 @@ footer {
 }
 /* إعدادات التجاوب مع شاشات الهواتف */
 /* عدل الكود ده جوه الـ Media Query للموبايل */
+/* =========================================
+   تنسيقات الشاشات الصغيرة والموبايل
+   ========================================= */
 @media (max-width: 768px) {
-  
-  /* 1. تنسيق القائمة العلوية بالكامل */
-  nav, .navbar {
-    flex-direction: row; /* يخلي العناصر جنب بعضها مش فوق بعض */
-    justify-content: center; /* يوسطن القائمة كلها في نصف الشاشة */
-    gap: 10px; /* يخلي مسافة بسيطة ومناسبة بين الكلمات */
-    width: 100%;
-    padding: 10px 0;
-  }
-
-  /* 2. تنسيق عناصر القائمة الفردية (الروابط) */
-  nav a, .navbar a {
-    font-size: 0.85rem; /* تصغير حجم الخط قليلاً ليناسب عرض الشاشة */
-    padding: 5px;
+  /* ضبط القائمة العلوية لتظهر بشكل مريح وبدون تداخل */
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
     text-align: center;
   }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+    padding: 4px 6px;
+  }
+
+  /* ضبط النصوص والعناوين الرئيسية */
+  .hero-content h2 {
+    font-size: 1.6rem;
+    line-height: 1.4;
+  }
+
+  /* تحويل كروت المشاريع لعمود واحد */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* إلغاء تأثير 3D Tilt على الموبايل لتجنب البطء مع اللمس */
+  .project-card {
+    transform: none !important;
+  }
+
+  /* ضبط زر الصعود العائم حتى لا يغطي الكلمات */
+  #scrollTopBtn {
+    bottom: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
+/* --- 1. تعريف حركات الانيميشن --- */
+
+/* حركة الظهور والصعود */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* حركة الإضاءة النبضية لجزء .dev */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 216, 246, 0.4),
+                 0 0 20px rgba(0, 216, 246, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(0, 216, 246, 0.6),
+                 0 0 25px rgba(0, 216, 246, 0.4),
+                 0 0 35px rgba(0, 216, 246, 0.2);
+  }
+}
+
+/* --- 2. تطبيق الحركات على العنوان الكبير --- */
+
+.main-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-align: center;
+  margin: 35px 0 15px 0;
+  direction: ltr;
+  letter-spacing: 1px;
+  font-family: 'Cairo', sans-serif;
+  
+  /* تطبيق انيميشن الظهور والصعود */
+  animation: fadeInUp 1.2s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.main-title .highlight {
+  color: #00d8f6;
+  
+  /* تطبيق انيميشن النبض */
+  animation: neonPulse 3s infinite ease-in-out 0.5s;
+  will-change: text-shadow;
+}
+
+/* ضبط حجم الخط للموبايل */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.4rem;
+  }
+}
+
+/* ضبط حجم الخط للموبايل */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.4rem;
+  }
+}
+/* تنسيق شارة Software Engineer بالشكل العصري المضيء */
+.software-engineer-title {
+  display: inline-block;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: #00f2fe;
+  background-color: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+/* --- تصحيح ألوان روابط الهيدر --- */
+header nav ul li a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: var(--primary-accent);
+}
+/* --- تصحيح ألوان شارة Software Engineer --- */
+.software-engineer-title {
+  display: inline-block;
+  font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  background-color: var(--card-bg);
+  border: 1px solid var(--primary-accent);
+  padding: 8px 22px;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.software-engineer-title .code-bracket {
+  color: var(--primary-accent);
+  font-weight: bold;
+}
+
+.software-engineer-title:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--glow-color);
+}
+/* --- تصحيح حقول المدخلات (Contact Form Input Fix) --- */
+.contact-form input,
+.contact-form textarea,
+input,
+textarea {
+  background-color: var(--card-bg) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--card-border) !important;
+  transition: all 0.3s ease;
+}
+
+/* لون نص التوضيح (Placeholder) */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.8;
+}
+
+/* عند الضغط على الحقل للكتابة (Focus) */
+.contact-form input:focus,
+.contact-form textarea:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 8px var(--glow-color) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-main) !important;
+}
+
+/* حل مشكلة الإكمال التلقائي للـ Chrome / Edge (Autofill Fill Color) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-main) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* =========================================
+   زرار الأيقونات النيون المودرن (Clean SVG Toggle)
+   ========================================= */
+.theme-icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px; /* حواف دائرية مودرن مش دائرة كاملة */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-right: 15px;
+}
+
+.theme-icon-btn svg {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
+}
+
+/* الوضع الداكن الافتراضي: القمر ظاهر نيون سماوي */
+.theme-icon-btn .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  stroke: var(--primary-accent);
+  filter: drop-shadow(0 0 6px var(--primary-accent));
+}
+
+.theme-icon-btn .sun-icon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+  stroke: var(--text-main);
+}
+
+/* --- عند التبديل للـ Light Mode --- */
+body.light-theme .theme-icon-btn .moon-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+body.light-theme .theme-icon-btn .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  stroke: #0f172a; /* لون شمس كحلي داكن وأنيق بدل الأصفر */
+  filter: drop-shadow(0 0 4px rgba(15, 23, 42, 0.2));
+}
+
+/* تأثير التمرير (Hover) */
+.theme-icon-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-accent);
+  box-shadow: 0 6px 16px var(--glow-color);
 }
