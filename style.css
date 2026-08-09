@@ -10,7 +10,7 @@
   --primary-accent: #00f2fe;
   --secondary-accent: #4facfe;
   --glow-color: rgba(0, 242, 254, 0.15);
-  --header-bg: rgba(19, 27, 46, 0.85);
+  --header-bg: rgba(19, 27, 46, 0.75);
   --title-color: #ffffff;
 }
 
@@ -23,8 +23,12 @@ body.light-theme {
   --primary-accent: #0284c7;
   --secondary-accent: #0369a1;
   --glow-color: rgba(2, 132, 199, 0.15);
-  --header-bg: rgba(244, 247, 251, 0.9);
+  --header-bg: rgba(244, 247, 251, 0.85);
   --title-color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -49,23 +53,23 @@ body {
   padding: 0 20px;
 }
 
-/* Scrollbar Customization */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
   background: #1f293d;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-accent);
 }
 
 /* =========================================
-   2. الهيدر والشريط العلوي (Header & Navigation)
+   2. Glassmorphism Header (هيدر زجاجي)
    ========================================= */
 header {
   background: var(--header-bg);
@@ -76,19 +80,19 @@ header {
   top: 0;
   z-index: 100;
   padding: 10px 0;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, padding 0.3s ease;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .logo {
   color: var(--text-main);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin: 0;
   white-space: nowrap;
 }
@@ -110,7 +114,7 @@ nav a {
   color: var(--text-main);
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: color 0.3s ease;
   position: relative;
 }
@@ -134,9 +138,7 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* =========================================
-   3. زر الأيقونات المودرن (Theme Switcher)
-   ========================================= */
+/* زر تبديل الثيم */
 .theme-icon-btn {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -193,41 +195,39 @@ body.light-theme .theme-icon-btn .sun-icon {
 }
 
 /* =========================================
-   4. Sections & Components
+   3. Hero & Main Sections
    ========================================= */
-.hero {
-  text-align: center;
-  padding: 40px 0 10px;
-}
-
 .main-title {
-  font-size: 3.5rem;
+  font-size: 3.8rem;
   font-weight: 800;
   color: var(--text-main);
   text-align: center;
-  margin: 10px 0 15px 0;
+  margin: 35px 0 15px 0;
   direction: ltr;
   letter-spacing: 1px;
+  font-family: 'Cairo', sans-serif;
   animation: fadeInUp 1.2s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 .main-title .highlight {
-  color: var(--primary-accent);
+  color: #00d8f6;
   animation: neonPulse 3s infinite ease-in-out 0.5s;
+  will-change: text-shadow;
 }
 
 .software-engineer-title {
   display: inline-block;
-  font-family: 'Fira Code', Consolas, monospace;
-  font-size: 0.9rem;
+  font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-main);
   background-color: var(--card-bg);
   border: 1px solid var(--primary-accent);
-  padding: 6px 18px;
+  padding: 8px 22px;
   border-radius: 30px;
   letter-spacing: 1px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
@@ -237,17 +237,22 @@ body.light-theme .theme-icon-btn .sun-icon {
   font-weight: bold;
 }
 
+.software-engineer-title:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--glow-color);
+}
+
 .section-title {
   color: var(--text-main);
   font-size: 1.8rem;
-  margin-top: 50px;
+  margin-top: 60px;
   margin-bottom: 25px;
   border-right: 4px solid var(--primary-accent);
   padding-right: 12px;
 }
 
 .hero-section {
-  padding: 30px 0;
+  padding: 70px 0 30px;
 }
 
 .badge {
@@ -264,7 +269,7 @@ body.light-theme .theme-icon-btn .sun-icon {
 
 .hero-content h2 {
   color: var(--text-main);
-  font-size: 2.1rem;
+  font-size: 2.3rem;
   margin: 15px 0;
 }
 
@@ -288,6 +293,13 @@ body.light-theme .theme-icon-btn .sun-icon {
   box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
 }
 
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   4. Cards & Grids
+   ========================================= */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -307,6 +319,7 @@ body.light-theme .theme-icon-btn .sun-icon {
 }
 
 .project-card:hover {
+  transform: translateY(-6px);
   border-color: rgba(0, 242, 254, 0.4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--glow-color);
 }
@@ -315,6 +328,12 @@ body.light-theme .theme-icon-btn .sun-icon {
   font-size: 0.75rem;
   color: var(--primary-accent);
   font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.project-card h3 {
+  color: var(--text-main);
+  margin: 10px 0;
 }
 
 .skills-grid {
@@ -332,6 +351,7 @@ body.light-theme .theme-icon-btn .sun-icon {
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  cursor: default;
 }
 
 .skill-item:hover {
@@ -341,7 +361,9 @@ body.light-theme .theme-icon-btn .sun-icon {
   transform: translateY(-3px);
 }
 
-/* Contact Form */
+/* =========================================
+   5. Contact Form & Footer
+   ========================================= */
 .contact-form {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -353,9 +375,11 @@ body.light-theme .theme-icon-btn .sun-icon {
 }
 
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+input,
+textarea {
   width: 100%;
-  background-color: var(--bg-color) !important;
+  background-color: var(--card-bg) !important;
   color: var(--text-main) !important;
   border: 1px solid var(--card-border) !important;
   padding: 14px;
@@ -367,23 +391,40 @@ body.light-theme .theme-icon-btn .sun-icon {
 }
 
 .contact-form input::placeholder,
-.contact-form textarea::placeholder {
+.contact-form textarea::placeholder,
+input::placeholder,
+textarea::placeholder {
   color: var(--text-muted) !important;
   opacity: 0.8;
 }
 
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+input:focus,
+textarea:focus {
   outline: none;
   border-color: var(--primary-accent) !important;
-  box-shadow: 0 0 10px var(--glow-color) !important;
+  box-shadow: 0 0 8px var(--glow-color) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-main) !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-main) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 footer {
   text-align: center;
-  padding: 30px 0;
+  padding: 40px 0;
   border-top: 1px solid var(--card-border);
-  margin-top: 50px;
+  margin-top: 60px;
   font-size: 0.9rem;
   color: var(--text-muted);
 }
@@ -396,24 +437,26 @@ footer {
   background: linear-gradient(to left, var(--primary-accent), var(--secondary-accent));
   width: 0%;
   z-index: 999;
+  transition: width 0.1s ease-out;
 }
 
 #scrollTopBtn {
   position: fixed;
-  bottom: 25px;
-  left: 25px;
-  width: 42px;
-  height: 42px;
+  bottom: 30px;
+  left: 30px;
+  width: 45px;
+  height: 45px;
   background-color: var(--card-bg);
   color: var(--primary-accent);
   border: 1px solid var(--primary-accent);
   border-radius: 50%;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   z-index: 99;
 }
 
@@ -422,55 +465,79 @@ footer {
   visibility: visible;
 }
 
+#scrollTopBtn:hover {
+  background-color: var(--primary-accent);
+  color: #0b0f17;
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
 /* Animations */
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes neonPulse {
-  0%, 100% { text-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
-  50% { text-shadow: 0 0 20px rgba(0, 242, 254, 0.7); }
-}
-
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.4); }
   70% { box-shadow: 0 0 0 10px rgba(0, 242, 254, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
 }
 
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes neonPulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(0, 216, 246, 0.4), 0 0 20px rgba(0, 216, 246, 0.2); }
+  50% { text-shadow: 0 0 15px rgba(0, 216, 246, 0.6), 0 0 25px rgba(0, 216, 246, 0.4), 0 0 35px rgba(0, 216, 246, 0.2); }
+}
+
 /* =========================================
-   5. التجاوب الخاص بالموبايل (Mobile Responsive Fix)
+   6. تنسيقات الشاشات الصغيرة والموبايل (Mobile Fix)
    ========================================= */
 @media (max-width: 768px) {
+  /* تصغير الهيدر وإبقائه رفيع أفقياً */
   header {
-    padding: 8px 0;
+    padding: 5px 0 !important;
   }
 
   .nav-container {
-    flex-direction: row !important; /* للحفاظ على الهيدر في سطر واحد */
+    flex-direction: row !important;
     justify-content: space-between;
     align-items: center;
+    gap: 8px !important;
   }
 
   .logo {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 
   nav ul {
-    gap: 8px;
+    gap: 8px !important;
   }
 
   nav a {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
+    padding: 2px 4px;
   }
 
+  .theme-icon-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin-right: 0;
+  }
+
+  .theme-icon-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* العناوين والكروت */
   .main-title {
     font-size: 2.2rem;
   }
 
   .hero-content h2 {
     font-size: 1.5rem;
+    line-height: 1.4;
   }
 
   .projects-grid {
@@ -479,5 +546,12 @@ footer {
 
   .project-card {
     transform: none !important;
+  }
+
+  #scrollTopBtn {
+    bottom: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
   }
 }
