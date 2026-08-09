@@ -10,11 +10,10 @@
   --primary-accent: #00f2fe;
   --secondary-accent: #4facfe;
   --glow-color: rgba(0, 242, 254, 0.15);
-  --header-bg: rgba(19, 27, 46, 0.75);
+  --header-bg: rgba(19, 27, 46, 0.85);
   --title-color: #ffffff;
 }
 
-/* درجات ألوان الوضع الفاتح Light Mode */
 body.light-theme {
   --bg-color: #f4f7fb;
   --card-bg: #ffffff;
@@ -24,32 +23,8 @@ body.light-theme {
   --primary-accent: #0284c7;
   --secondary-accent: #0369a1;
   --glow-color: rgba(2, 132, 199, 0.15);
-  --header-bg: rgba(244, 247, 251, 0.85);
+  --header-bg: rgba(244, 247, 251, 0.9);
   --title-color: #0f172a;
-}
-
-/* ربط العناصر بالمتغيرات الديناميكية */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-header {
-  background: var(--header-bg);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--card-border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 15px 0;
-  transition: background 0.3s ease;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 html {
@@ -63,16 +38,9 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.8;
-  body {
-  font-family: 'Cairo', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  margin: 0;
-  padding: 0;
-  line-height: 1.8;
   background-image: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
   background-repeat: no-repeat;
-}
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -81,46 +49,48 @@ body {
   padding: 0 20px;
 }
 
-/* =========================================
-   2. UX Custom Scrollbar (شريط التمرير)
-   ========================================= */
+/* Scrollbar Customization */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
   background: #1f293d;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-accent);
 }
 
 /* =========================================
-   3. Glassmorphism Header (هيدر زجاجي)
+   2. الهيدر والشريط العلوي (Header & Navigation)
    ========================================= */
 header {
-  background: rgba(19, 27, 46, 0.75);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--card-border);
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 15px 0;
+  padding: 10px 0;
+  transition: background 0.3s ease;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
 }
 
 .logo {
   color: var(--text-main);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0;
+  white-space: nowrap;
 }
 
 .logo span {
@@ -130,20 +100,21 @@ header {
 nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 18px;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 nav a {
-  color: var(--text-muted);
+  color: var(--text-main);
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
   position: relative;
 }
 
-/* UX Focus Line under links */
 nav a::after {
   content: '';
   position: absolute;
@@ -164,19 +135,119 @@ nav a:hover::after {
 }
 
 /* =========================================
-   4. Hero & Main Sections
+   3. زر الأيقونات المودرن (Theme Switcher)
    ========================================= */
+.theme-icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-icon-btn svg {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
+}
+
+.theme-icon-btn .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  stroke: var(--primary-accent);
+  filter: drop-shadow(0 0 6px var(--primary-accent));
+}
+
+.theme-icon-btn .sun-icon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+  stroke: var(--text-main);
+}
+
+body.light-theme .theme-icon-btn .moon-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+body.light-theme .theme-icon-btn .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  stroke: #0f172a;
+  filter: drop-shadow(0 0 4px rgba(15, 23, 42, 0.2));
+}
+
+.theme-icon-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-accent);
+  box-shadow: 0 6px 16px var(--glow-color);
+}
+
+/* =========================================
+   4. Sections & Components
+   ========================================= */
+.hero {
+  text-align: center;
+  padding: 40px 0 10px;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-align: center;
+  margin: 10px 0 15px 0;
+  direction: ltr;
+  letter-spacing: 1px;
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.main-title .highlight {
+  color: var(--primary-accent);
+  animation: neonPulse 3s infinite ease-in-out 0.5s;
+}
+
+.software-engineer-title {
+  display: inline-block;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  background-color: var(--card-bg);
+  border: 1px solid var(--primary-accent);
+  padding: 6px 18px;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.software-engineer-title .code-bracket {
+  color: var(--primary-accent);
+  font-weight: bold;
+}
+
 .section-title {
   color: var(--text-main);
   font-size: 1.8rem;
-  margin-top: 60px;
+  margin-top: 50px;
   margin-bottom: 25px;
   border-right: 4px solid var(--primary-accent);
   padding-right: 12px;
 }
 
 .hero-section {
-  padding: 70px 0 30px;
+  padding: 30px 0;
 }
 
 .badge {
@@ -193,11 +264,10 @@ nav a:hover::after {
 
 .hero-content h2 {
   color: var(--text-main);
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   margin: 15px 0;
 }
 
-/* UX Interactive Button */
 .btn-primary {
   display: inline-block;
   background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
@@ -218,13 +288,6 @@ nav a:hover::after {
   box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
 }
 
-.btn-primary:active {
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   5. Cards & Grids (UX Feedback)
-   ========================================= */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -239,10 +302,11 @@ nav a:hover::after {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
   border-color: rgba(0, 242, 254, 0.4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--glow-color);
 }
@@ -251,15 +315,8 @@ nav a:hover::after {
   font-size: 0.75rem;
   color: var(--primary-accent);
   font-weight: 700;
-  letter-spacing: 0.5px;
 }
 
-.project-card h3 {
-  color: var(--text-main);
-  margin: 10px 0;
-}
-
-/* Skills UX Tags */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -275,7 +332,6 @@ nav a:hover::after {
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  cursor: default;
 }
 
 .skill-item:hover {
@@ -285,9 +341,7 @@ nav a:hover::after {
   transform: translateY(-3px);
 }
 
-/* =========================================
-   6. Contact Form (UX Micro-interactions)
-   ========================================= */
+/* Contact Form */
 .contact-form {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -301,9 +355,9 @@ nav a:hover::after {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  background: var(--bg-color);
-  border: 1px solid var(--card-border);
-  color: var(--text-main);
+  background-color: var(--bg-color) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--card-border) !important;
   padding: 14px;
   border-radius: 8px;
   font-family: inherit;
@@ -312,35 +366,28 @@ nav a:hover::after {
   transition: all 0.3s ease;
 }
 
-/* Focus UX state: إضاءة الحقل عند الضغط عليه */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.8;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--primary-accent);
-  box-shadow: 0 0 10px var(--glow-color);
-  background: #111726;
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 10px var(--glow-color) !important;
 }
 
 footer {
   text-align: center;
-  padding: 40px 0;
+  padding: 30px 0;
   border-top: 1px solid var(--card-border);
-  margin-top: 60px;
+  margin-top: 50px;
   font-size: 0.9rem;
   color: var(--text-muted);
 }
 
-/* Keyframes */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 242, 254, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
-}ٍ
-/* =========================================
-   تنسيقات الـ UX الجديدة (Progress Bar & Floating Button)
-   ========================================= */
-
-/* شريط تقدم القراءة أعلى الصفحة */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -349,27 +396,24 @@ footer {
   background: linear-gradient(to left, var(--primary-accent), var(--secondary-accent));
   width: 0%;
   z-index: 999;
-  transition: width 0.1s ease-out;
 }
 
-/* زر الصعود العائم Back to Top */
 #scrollTopBtn {
   position: fixed;
-  bottom: 30px;
-  left: 30px;
-  width: 45px;
-  height: 45px;
+  bottom: 25px;
+  left: 25px;
+  width: 42px;
+  height: 42px;
   background-color: var(--card-bg);
   color: var(--primary-accent);
   border: 1px solid var(--primary-accent);
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   z-index: 99;
 }
 
@@ -378,310 +422,62 @@ footer {
   visibility: visible;
 }
 
-#scrollTopBtn:hover {
-  background-color: var(--primary-accent);
-  color: #0b0f17;
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px var(--glow-color);
+/* Animations */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* تهيئة كروت المشاريع لتأثير الـ 3D Tilt */
-.project-card {
-  transform-style: preserve-3d;
-  will-change: transform;
+@keyframes neonPulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
+  50% { text-shadow: 0 0 20px rgba(0, 242, 254, 0.7); }
 }
-/* إعدادات التجاوب مع شاشات الهواتف */
-/* عدل الكود ده جوه الـ Media Query للموبايل */
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 242, 254, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+}
+
 /* =========================================
-   تنسيقات الشاشات الصغيرة والموبايل
+   5. التجاوب الخاص بالموبايل (Mobile Responsive Fix)
    ========================================= */
 @media (max-width: 768px) {
-  /* ضبط القائمة العلوية لتظهر بشكل مريح وبدون تداخل */
+  header {
+    padding: 8px 0;
+  }
+
   .nav-container {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
+    flex-direction: row !important; /* للحفاظ على الهيدر في سطر واحد */
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.15rem;
   }
 
   nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+    gap: 8px;
   }
 
   nav a {
-    font-size: 0.9rem;
-    padding: 4px 6px;
+    font-size: 0.8rem;
   }
 
-  /* ضبط النصوص والعناوين الرئيسية */
+  .main-title {
+    font-size: 2.2rem;
+  }
+
   .hero-content h2 {
-    font-size: 1.6rem;
-    line-height: 1.4;
+    font-size: 1.5rem;
   }
 
-  /* تحويل كروت المشاريع لعمود واحد */
   .projects-grid {
     grid-template-columns: 1fr;
   }
 
-  /* إلغاء تأثير 3D Tilt على الموبايل لتجنب البطء مع اللمس */
   .project-card {
     transform: none !important;
-  }
-
-  /* ضبط زر الصعود العائم حتى لا يغطي الكلمات */
-  #scrollTopBtn {
-    bottom: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-  }
-}
-/* --- 1. تعريف حركات الانيميشن --- */
-
-/* حركة الظهور والصعود */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* حركة الإضاءة النبضية لجزء .dev */
-@keyframes neonPulse {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(0, 216, 246, 0.4),
-                 0 0 20px rgba(0, 216, 246, 0.2);
-  }
-  50% {
-    text-shadow: 0 0 15px rgba(0, 216, 246, 0.6),
-                 0 0 25px rgba(0, 216, 246, 0.4),
-                 0 0 35px rgba(0, 216, 246, 0.2);
-  }
-}
-
-/* --- 2. تطبيق الحركات على العنوان الكبير --- */
-
-.main-title {
-  font-size: 3.8rem;
-  font-weight: 800;
-  color: var(--text-main);
-  text-align: center;
-  margin: 35px 0 15px 0;
-  direction: ltr;
-  letter-spacing: 1px;
-  font-family: 'Cairo', sans-serif;
-  
-  /* تطبيق انيميشن الظهور والصعود */
-  animation: fadeInUp 1.2s ease-out forwards;
-  will-change: transform, opacity;
-}
-
-.main-title .highlight {
-  color: #00d8f6;
-  
-  /* تطبيق انيميشن النبض */
-  animation: neonPulse 3s infinite ease-in-out 0.5s;
-  will-change: text-shadow;
-}
-
-/* ضبط حجم الخط للموبايل */
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 2.4rem;
-  }
-}
-
-/* ضبط حجم الخط للموبايل */
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 2.4rem;
-  }
-}
-/* تنسيق شارة Software Engineer بالشكل العصري المضيء */
-.software-engineer-title {
-  display: inline-block;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.95rem;
-  color: #00f2fe;
-  background-color: rgba(0, 242, 254, 0.08);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  padding: 6px 16px;
-  border-radius: 20px;
-  letter-spacing: 1.5px;
-  margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
-}
-
-/* --- تصحيح ألوان روابط الهيدر --- */
-header nav ul li a {
-  color: var(--text-main);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.05rem;
-  transition: color 0.3s ease;
-}
-
-header nav ul li a:hover {
-  color: var(--primary-accent);
-}
-/* --- تصحيح ألوان شارة Software Engineer --- */
-.software-engineer-title {
-  display: inline-block;
-  font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  background-color: var(--card-bg);
-  border: 1px solid var(--primary-accent);
-  padding: 8px 22px;
-  border-radius: 30px;
-  letter-spacing: 1px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.software-engineer-title .code-bracket {
-  color: var(--primary-accent);
-  font-weight: bold;
-}
-
-.software-engineer-title:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--glow-color);
-}
-/* --- تصحيح حقول المدخلات (Contact Form Input Fix) --- */
-.contact-form input,
-.contact-form textarea,
-input,
-textarea {
-  background-color: var(--card-bg) !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--card-border) !important;
-  transition: all 0.3s ease;
-}
-
-/* لون نص التوضيح (Placeholder) */
-.contact-form input::placeholder,
-.contact-form textarea::placeholder,
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-muted) !important;
-  opacity: 0.8;
-}
-
-/* عند الضغط على الحقل للكتابة (Focus) */
-.contact-form input:focus,
-.contact-form textarea:focus,
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: var(--primary-accent) !important;
-  box-shadow: 0 0 8px var(--glow-color) !important;
-  background-color: var(--card-bg) !important;
-  color: var(--text-main) !important;
-}
-
-/* حل مشكلة الإكمال التلقائي للـ Chrome / Edge (Autofill Fill Color) */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--text-main) !important;
-  -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-/* =========================================
-   زرار الأيقونات النيون المودرن (Clean SVG Toggle)
-   ========================================= */
-.theme-icon-btn {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  width: 44px;
-  height: 44px;
-  border-radius: 12px; /* حواف دائرية مودرن مش دائرة كاملة */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  margin-right: 15px;
-}
-
-.theme-icon-btn svg {
-  width: 22px;
-  height: 22px;
-  position: absolute;
-  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
-}
-
-/* الوضع الداكن الافتراضي: القمر ظاهر نيون سماوي */
-.theme-icon-btn .moon-icon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-  stroke: var(--primary-accent);
-  filter: drop-shadow(0 0 6px var(--primary-accent));
-}
-
-.theme-icon-btn .sun-icon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.5);
-  stroke: var(--text-main);
-}
-
-/* --- عند التبديل للـ Light Mode --- */
-body.light-theme .theme-icon-btn .moon-icon {
-  opacity: 0;
-  transform: rotate(90deg) scale(0.5);
-}
-
-body.light-theme .theme-icon-btn .sun-icon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-  stroke: #0f172a; /* لون شمس كحلي داكن وأنيق بدل الأصفر */
-  filter: drop-shadow(0 0 4px rgba(15, 23, 42, 0.2));
-}
-
-/* تأثير التمرير (Hover) */
-.theme-icon-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--primary-accent);
-  box-shadow: 0 6px 16px var(--glow-color);
-}
-/* --- تصغير الهيدر وتلميم المساحة الشفافة --- */
-header {
-  padding: 10px 5% !important; /* تقليل الحشو العلوي والسفلي */
-  min-height: auto !important;
-}
-
-/* تصغير المسافات بين عناصر النافبار */
-header .container, 
-header nav {
-  gap: 10px !important;
-}
-
-/* تنسيق الهيدر للموبايل خصيصاً */
-@media (max-width: 768px) {
-  header {
-    padding: 8px 15px !important;
-  }
-  
-  header nav ul {
-    gap: 12px !important; /* تقليل المسافات بين الكلمات (عنّي - المشاريع) */
-  }
-
-  header nav ul li a {
-    font-size: 0.9rem !important; /* تصغير الخط بسيط عشان يلم المساحة */
   }
 }
