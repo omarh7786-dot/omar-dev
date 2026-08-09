@@ -659,3 +659,29 @@ body.light-theme .theme-icon-btn .sun-icon {
   border-color: var(--primary-accent);
   box-shadow: 0 6px 16px var(--glow-color);
 }
+/* --- تصغير الهيدر وتلميم المساحة الشفافة --- */
+header {
+  padding: 10px 5% !important; /* تقليل الحشو العلوي والسفلي */
+  min-height: auto !important;
+}
+
+/* تصغير المسافات بين عناصر النافبار */
+header .container, 
+header nav {
+  gap: 10px !important;
+}
+
+/* تنسيق الهيدر للموبايل خصيصاً */
+@media (max-width: 768px) {
+  header {
+    padding: 8px 15px !important;
+  }
+  
+  header nav ul {
+    gap: 12px !important; /* تقليل المسافات بين الكلمات (عنّي - المشاريع) */
+  }
+
+  header nav ul li a {
+    font-size: 0.9rem !important; /* تصغير الخط بسيط عشان يلم المساحة */
+  }
+}
